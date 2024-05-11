@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHealth
 {
 
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _speed;
+    [SerializeField] private float _attackCD = 1f;
 
     private Vector3 _input;
     private Camera _camera;
 
+    public int MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private void Start()
     {
