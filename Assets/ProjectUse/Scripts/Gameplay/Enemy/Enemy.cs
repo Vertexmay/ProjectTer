@@ -5,13 +5,28 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] protected Animator _animator;
+
     [Header("Enemy Options")]
     [SerializeField] protected float _visionDistance = 10f;
-    [SerializeField] protected int _maxHealth = 100;
-    [SerializeField] protected float _maxSpeed = 5;
-    [SerializeField] protected float _speedIncrease = 2.5f;
+    [SerializeField] protected int _level = 1;
+    [SerializeField] protected CharProgressSO _charProgressSO;
     
-    [SerializeField] protected Animator _animator;
+    
+    protected CharacterData _charData 
+    {
+        get
+        {
+            int level = _level -1;
+
+            if (_level > _charProgressSO.CharProgress.Count)
+                return _charProgressSO.CharProgress[_charProgressSO.CharProgress.Count];
+            else if (_level < 1)
+                return _charProgressSO.CharProgress[0];
+
+            return _charProgressSO.CharProgress[level];
+        }
+    }
 
     protected int _health;
     protected bool _isAlive = true;
@@ -32,11 +47,11 @@ public class Enemy : MonoBehaviour
 
     protected void OnHeal(object sender, int heal)
     {
-        if (_health < _maxHealth)
+        if (_health < _charData.MaxHP)
             _health += heal;
 
-        if (_health > _maxHealth)
-            _health = _maxHealth;
+        if (_health > _charData.MaxHP)
+            _health = _charData.MaxHP;
     }
 
     protected void OnTakeDmg(object sender, int damage)

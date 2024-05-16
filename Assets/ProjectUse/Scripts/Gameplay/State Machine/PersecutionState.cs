@@ -3,10 +3,11 @@ using UnityEngine.AI;
 
 public class PersecutionState : StateSM
 {
+    private float _maxSpeed = 5f;
+    private float _speedIncrease = 2.5f;
     private Transform _target;
     private NavMeshAgent _agent;
     private Attacker _attacker;
-    private IMoveble _moveble;
     private float _speed;
     //
     private float _persDistance = 15f;
@@ -15,13 +16,11 @@ public class PersecutionState : StateSM
     private float _persTime = 1f;
     private float _timer = 0f;
 
-    public PersecutionState(StateMachine machine, Animator animator, Attacker attacker, Transform target, 
-                            NavMeshAgent agent, IMoveble moveble) : base(machine, animator)
+    public PersecutionState(StateMachine machine, Animator animator, Attacker attacker, Transform target, NavMeshAgent agent) : base(machine, animator)
     {
         _attacker = attacker;
         _target = target;
         _agent = agent;
-        _moveble = moveble;
         _speed = _animator.GetFloat("Speed");
     }
 
@@ -43,9 +42,10 @@ public class PersecutionState : StateSM
 
         _agent.SetDestination(_target.position);
 
-        if (_speed < _moveble.MaxSpeed)
-            _speed += _moveble.SpeedIncrase * Time.deltaTime;
-
+        if (_speed < _maxSpeed)
+        {
+            _speed += _speedIncrease * Time.deltaTime;
+        }
 
         //Проверяем что противник остановился и дистанция подходит для атаки
         if (Vector3.Distance(_target.position, _agent.nextPosition) < _attacker.AttackRadius)

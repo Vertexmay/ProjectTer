@@ -35,7 +35,7 @@ public class AttackState : StateSM
             _machine.SetState<IdleState>();
         
         if (CanAttack)
-            _attacker.Attack();
+            _attacker.AttackEnemy();
         else
             _machine.SetState<PersecutionState>();
     }

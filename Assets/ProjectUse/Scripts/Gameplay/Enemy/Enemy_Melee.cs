@@ -5,29 +5,26 @@ using UnityEngine.AI;
 public class Enemy_Melee : Enemy, IMoveble
 {
     [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private CharProgressSO _charProgSO;
     private Attacker _attacker;
 
-    public float Speed => _currentSpeed;
-    public float MaxSpeed => _maxSpeed;
-    public float SpeedIncrase => _speedIncrease;
 
-    private void Awake()
+    public float Speed => _currentSpeed;
+    public float MaxSpeed => _charData.MaxSpeed;
+    public float SpeedIncrase => _charData.SpeedIncrase;
+
+    private void Start()
     {
         _attacker = GetComponent<Attacker>();
 
         _stateMachine = new StateMachine();
-        _stateMachine = new StateMachine();
         _stateMachine.AddState(new IdleState(_stateMachine, _animator));
         _stateMachine.AddState(new MoveState(_stateMachine, _animator, this));
-        _stateMachine.AddState(new PersecutionState(_stateMachine, _animator, _attacker, GameManager.PlayerTransform, _agent, this));
+        _stateMachine.AddState(new PersecutionState(_stateMachine, _animator, _attacker, GameManager.PlayerTransform, _agent));
         _stateMachine.AddState(new AttackState(_stateMachine, _animator, GameManager.PlayerTransform.GetComponent<PlayerCont>(), GameManager.PlayerTransform, _attacker));
         _stateMachine.SetState<IdleState>();
-    }
 
-
-    private void Start()
-    {
-        _health = _maxHealth;
+        _health = _charData.MaxHP;
         _isAlive = _health > 0 ? true : false;
     }
 
