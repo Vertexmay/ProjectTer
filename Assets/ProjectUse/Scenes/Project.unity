@@ -2259,6 +2259,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy1
       objectReference: {fileID: 0}
+    - target: {fileID: 4378274843071085561, guid: ecbc7e480776fa746b1f67690769b704,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4379988963361528279, guid: ecbc7e480776fa746b1f67690769b704,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12968,6 +12973,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 416975508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1891079881 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4641708385543063782, guid: 36da3991bfd12314faaebdd9e9782283,
+    type: 3}
+  m_PrefabInstance: {fileID: 6138792021075407010}
+  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &1998346111
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -13038,6 +13049,21 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6138792021075407010}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2047488497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847857887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0a1c23b52819447947d3e9abc8aa56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slotPrefab: {fileID: 9056991198126051993, guid: 13666dfafd56b2741a2b344836f72d1f,
+    type: 3}
+  _backpack: {fileID: 1891079881}
 --- !u!1 &2060246745
 GameObject:
   m_ObjectHideFlags: 0
@@ -13933,6 +13959,21 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8351537738427429897, guid: 36da3991bfd12314faaebdd9e9782283,
+        type: 3}
+      propertyPath: m_Spacing.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351537738427429897, guid: 36da3991bfd12314faaebdd9e9782283,
+        type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351537738427429897, guid: 36da3991bfd12314faaebdd9e9782283,
+        type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8370020898805582734, guid: 36da3991bfd12314faaebdd9e9782283,
         type: 3}
       propertyPath: m_Name
@@ -13950,7 +13991,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 41081561}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6161062179183831691, guid: 36da3991bfd12314faaebdd9e9782283,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2047488497}
   m_SourcePrefab: {fileID: 100100000, guid: 36da3991bfd12314faaebdd9e9782283, type: 3}
 --- !u!1 &6236027700295566284 stripped
 GameObject:
