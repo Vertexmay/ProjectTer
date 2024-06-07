@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: Base Enemy
   m_EditorClassIdentifier: 
   _charProgress:
-  - _level: 1
+  - _level: 0
     _maxHP: 100
     _maxSpeed: 5
     _speedIncrase: 2.5
-  - _level: 2
+  - _level: 1
     _maxHP: 115
     _maxSpeed: 5.5
     _speedIncrase: 2.75
-  - _level: 3
+  - _level: 2
     _maxHP: 130
     _maxSpeed: 6
     _speedIncrase: 3
-  - _level: 4
+  - _level: 3
     _maxHP: 145
     _maxSpeed: 6.5
     _speedIncrase: 3.25
-  - _level: 5
+  - _level: 4
     _maxHP: 150
     _maxSpeed: 7
     _speedIncrase: 3.5

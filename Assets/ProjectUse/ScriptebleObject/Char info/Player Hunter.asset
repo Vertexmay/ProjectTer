@@ -17,19 +17,19 @@ MonoBehaviour:
     _maxHP: 100
     _maxSpeed: 5
     _speedIncrase: 2.75
-  - _level: 0
+  - _level: 1
     _maxHP: 110
     _maxSpeed: 5.6
     _speedIncrase: 3.55
-  - _level: 0
+  - _level: 2
     _maxHP: 125
     _maxSpeed: 6.2
     _speedIncrase: 3.55
-  - _level: 0
+  - _level: 3
     _maxHP: 140
     _maxSpeed: 6.8
     _speedIncrase: 3.65
-  - _level: 0
+  - _level: 4
     _maxHP: 150
     _maxSpeed: 7.5
     _speedIncrase: 3.75

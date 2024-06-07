@@ -1,15 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerCont : MonoBehaviour, IHealth, IMoveble
 {
     [SerializeField] private CharacterController _characterController;
+    [SerializeField] private ParticleSystem _particleSystem;
     [SerializeField] private Animator _animator;
     [SerializeField] private Attacker _attacker;
 
     [Header("Player Options")]
+    [SerializeField] private float _lootingRadius = 1;
     [SerializeField] private int _level;
     [SerializeField] private CharProgressSO _charProgressSO;
+    private Inventory _inventory = new Inventory();
+    private Collider[] _loot = new Collider[5];
     private CharacterData _charData => _charProgressSO.CharProgress[_level];
     [SerializeField] private float _minSpeed = 1f;
     
@@ -18,6 +24,7 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
     private bool _isAlive = true;
     private Vector3 _input;
     private Camera _camera;
+    public List<LootSO> Loot => _inventory.Backpack;
 
     public int Health => _health;
 
@@ -75,6 +82,26 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
             {
                 _attacker.Attack();
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                PickUpLoot();
+            }
+        }
+    }
+    private void PickUpLoot()
+    {
+        print("Try pickup");
+        int count = Physics.OverlapSphereNonAlloc(transform.position, _lootingRadius, _loot, 1);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (_loot[i].TryGetComponent<Loot>(out var loot))
+            {
+                print("Add loot");
+                _inventory.AddLoot(loot.LootData);
+                loot.OnPickUp();
+            }
         }
     }
 
@@ -103,11 +130,18 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
             _health = 0;
             Die();
         }
+
+        _particleSystem.Play();
     }
 
     private void Die()
     {
         print("You Dead");
         _animator.Play("Die");
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, _lootingRadius);
     }
 }
