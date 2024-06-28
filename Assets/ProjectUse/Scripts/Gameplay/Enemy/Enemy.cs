@@ -35,13 +35,17 @@ public class Enemy : MonoBehaviour
     protected StateMachine _stateMachine;
     protected List<StateSM> _states = new List<StateSM>();
 
-    protected int Health => _health;
+    protected int Health 
+    {
+        get { return _health; }
+        set { _health = value; }
+    }
 
     public EventHandler<int> TakeDamage => OnTakeDmg;
     public EventHandler<int> TakeHeal => OnHeal;
 
     protected void Die()
-    {
+    {       
         print("Dead");
     }
 

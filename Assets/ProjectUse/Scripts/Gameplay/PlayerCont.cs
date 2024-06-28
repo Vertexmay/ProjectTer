@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
 
 public class PlayerCont : MonoBehaviour, IHealth, IMoveble
 {
@@ -21,12 +22,28 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
     
     private float _currentSpeed = 2.5f;
     private int _health;
+    private int _maxHP;
     private bool _isAlive = true;
     private Vector3 _input;
     private Camera _camera;
     public List<LootSO> Loot => _inventory.Backpack;
 
-    public int Health => _health;
+    public int Class;
+    public float HP;
+    public float Health 
+    { 
+        get;
+        private set;
+    }
+    public float MaxHP 
+    {
+        get;
+        private set;
+    }
+
+    [SerializeField] private CharProgressSO _charClassW;
+    [SerializeField] private CharProgressSO _charClassH;
+    [SerializeField] private CharProgressSO _charClassT;
 
     public EventHandler<int> TakeDamage => OnTakeDmg;
     public EventHandler<int> TakeHeal => OnHeal;
@@ -38,9 +55,28 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
     public float SpeedIncrase => _charData.SpeedIncrase;
 
     private void Start()
-    {
+    {   
+        if (Class == 1)
+        {
+            _charProgressSO = _charClassW;
+        }
+        if (Class == 2)
+        {
+            _charProgressSO = _charClassH;
+        }
+        if (Class == 3)
+        {
+            _charProgressSO = _charClassT;
+        }
+        else
+        {
+            Application.Quit();
+        }
         _camera = Camera.main;
         _health = _charData.MaxHP;
+        MaxHP = _charData.MaxHP;
+        Health = _health;
+        HP = _health;       
     }
 
     private void Update()
@@ -121,13 +157,16 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
 
         if (_health > damage)
         {
-            _health -= damage;            
+            _health -= damage;
+            Health = _health;
+            getHP();
             _animator.Play("GetHit"); 
         }
         else if (_isAlive)
         {
             _isAlive = false;
             _health = 0;
+            getHP();
             Die();
         }
 
@@ -143,5 +182,11 @@ public class PlayerCont : MonoBehaviour, IHealth, IMoveble
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, _lootingRadius);
+    }
+
+    public void getHP()
+    {
+        Health = _health;
+        HP = _health;
     }
 }

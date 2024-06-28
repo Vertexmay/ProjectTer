@@ -62,7 +62,7 @@ public class Attacker : MonoBehaviour
             _animator.SetInteger("AttackVariant", 0);
             _animator.SetTrigger("Attack");
             ResetAttackTimer();
-            AttackNear();
+            AttackNearPlayer();
         }
     }
 
@@ -75,6 +75,19 @@ public class Attacker : MonoBehaviour
             if (_hits[i].TryGetComponent<IHealth>(out var enemy))
             {
                 enemy.TakeDamage?.Invoke(this, _damage);
+            }
+        }
+    }
+
+    private void AttackNearPlayer()
+    {
+        int count = Physics.OverlapSphereNonAlloc(transform.position, AttackRadius, _hits, _damageMask);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (_hits[i].TryGetComponent<IHealth>(out var player))
+            {
+                player.TakeDamage?.Invoke(this, _damage);
             }
         }
     }
